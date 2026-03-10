@@ -11,3 +11,6 @@ __pycache__/
 .DS_Store
 
 docs/plans/
+.claude/
+.workflow/
+CLAUDE.md
