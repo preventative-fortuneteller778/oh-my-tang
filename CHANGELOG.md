@@ -6,6 +6,23 @@ The format is inspired by [Keep a Changelog](https://keepachangelog.com/en/1.1.0
 
 ## [Unreleased]
 
+### Added
+
+- Configurable `departments` prompts in `.oh-my-tang.json` for `zhongshu`, `menxia`, and `shangshu`
+- Configurable `ministries` catalog support so execution roles can be added or removed without changing code
+- Minimal top-level repository policy files: `LICENSE`, `CONTRIBUTING.md`, `CODE_OF_CONDUCT.md`, and `SECURITY.md`
+
+### Changed
+
+- `agentModels` now validates against the currently configured ministry ids instead of a fixed built-in ministry list
+- Runtime, dispatch, audit, and local fallback behavior now follow the resolved ministry catalog instead of assuming exactly six fixed ministries
+- `package.json` now points its `module` field at the built artifact and includes release-facing docs in the published file set
+
+### Documentation
+
+- Updated Chinese and English README configuration examples to cover configurable prompts and dynamic ministries
+- Restored README-linked repository policy/documentation files so release-facing links resolve again
+
 ## [0.1.1] - 2026-03-09
 
 ### Added

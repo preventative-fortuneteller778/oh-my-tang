@@ -4,7 +4,7 @@
   "description": "三省六部制 · Tang Dynasty Multi-Agent Orchestration Plugin for OpenCode",
   "type": "module",
   "main": "dist/plugin.js",
-  "module": "src/plugin.ts",
+  "module": "dist/plugin.js",
   "scripts": {
     "build": "bun build ./src/index.ts ./src/plugin.ts --outdir ./dist --target node",
     "ci": "bun run typecheck && bun test && bun run build",
@@ -25,6 +25,13 @@
     }
   },
   "files": [
+    "CHANGELOG.md",
+    "CODE_OF_CONDUCT.md",
+    "CONTRIBUTING.md",
+    "LICENSE",
+    "README_CN.md",
+    "README_EN.md",
+    "SECURITY.md",
     "dist",
     "src/*.ts",
     "src/agents/*.ts",
