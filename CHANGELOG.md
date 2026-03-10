@@ -6,6 +6,8 @@ The format is inspired by [Keep a Changelog](https://keepachangelog.com/en/1.1.0
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-03-10
+
 ### Added
 
 - Configurable `departments` prompts in `.oh-my-tang.json` for `zhongshu`, `menxia`, and `shangshu`
@@ -16,7 +18,7 @@ The format is inspired by [Keep a Changelog](https://keepachangelog.com/en/1.1.0
 
 - `agentModels` now validates against the currently configured ministry ids instead of a fixed built-in ministry list
 - Runtime, dispatch, audit, and local fallback behavior now follow the resolved ministry catalog instead of assuming exactly six fixed ministries
-- `package.json` now points its `module` field at the built artifact and includes release-facing docs in the published file set
+- `package.json` now points its `module` field at the built artifact, includes release-facing docs in the published file set, and runs build/CI publish safeguards via `prepack` and `prepublishOnly`
 
 ### Documentation
 

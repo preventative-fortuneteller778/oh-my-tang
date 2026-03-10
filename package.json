@@ -1,6 +1,6 @@
 {
   "name": "oh-my-tang-dynasty",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "三省六部制 · Tang Dynasty Multi-Agent Orchestration Plugin for OpenCode",
   "type": "module",
   "main": "dist/plugin.js",
@@ -9,6 +9,8 @@
     "build": "bun build ./src/index.ts ./src/plugin.ts --outdir ./dist --target node",
     "ci": "bun run typecheck && bun test && bun run build",
     "dev": "bun build ./src/index.ts ./src/plugin.ts --outdir ./dist --target node --watch",
+    "prepack": "bun run build",
+    "prepublishOnly": "bun run ci",
     "test": "bun test",
     "typecheck": "bun x tsc --noEmit --skipLibCheck --target es2022 --module esnext --moduleResolution bundler --types bun-types,node src/config.ts src/index.ts src/orchestrator.ts src/plugin.test.ts src/plugin.ts src/runtime.ts src/types.ts src/agents/departments.ts src/agents/ministries.ts"
   },
