@@ -106,11 +106,28 @@ The generated `.oh-my-tang.json` looks like this:
   "tokenBudgetLimit": 100000,
   "healthRiskProfile": "balanced",
   "enableParallelExecution": true,
-  "verbose": false
+  "verbose": false,
+  "agentModels": {}
 }
 ```
 
 If you want library imports instead of plugin loading:
+
+Recommended default configuration (all roles follow the user's own OpenCode default model):
+
+```ts
+{
+  maxConcurrentMinistries: 3,
+  maxReviewRounds: 3,
+  tokenBudgetLimit: 100_000,
+  healthRiskProfile: "balanced",
+  enableParallelExecution: true,
+  verbose: false,
+  agentModels: {},
+}
+```
+
+If you want explicit per-role overrides, use this template:
 
 ```ts
 import { TangDynastyOrchestrator } from "oh-my-tang-dynasty/lib";
@@ -120,6 +137,8 @@ The plugin supports a hybrid execution model:
 
 - **OpenCode runtime mode** — when loaded inside OpenCode, it uses `input.client` to create ephemeral sessions for planning, review, and ministry execution
 - **Deterministic fallback mode** — if the runtime client cannot return valid structured output, or if a runtime ministry execution fails or throws, the orchestrator falls back to local Tang heuristics so the pipeline remains usable and testable
+
+`agentModels` can optionally assign a different OpenCode `providerID` / `modelID` to `zhongshu`, `menxia`, `shangshu`, and each ministry. When a role-specific override is present, Tang attaches that model to the corresponding runtime prompt; unconfigured roles continue to use the host default model.
 
 The governance loop also supports two deeper control paths:
 
@@ -307,6 +326,8 @@ The plugin maps Tang Dynasty governance into AI orchestration:
 
 ## Configuration
 
+Recommended default configuration (all roles follow the user's own OpenCode default model):
+
 ```ts
 {
   maxConcurrentMinistries: 3,
@@ -315,8 +336,44 @@ The plugin maps Tang Dynasty governance into AI orchestration:
   healthRiskProfile: "balanced",
   enableParallelExecution: true,
   verbose: false,
+  agentModels: {},
 }
 ```
+
+If you want explicit per-role overrides, use this template:
+
+```ts
+{
+  maxConcurrentMinistries: 3,
+  maxReviewRounds: 3,
+  tokenBudgetLimit: 100_000,
+  healthRiskProfile: "balanced",
+  enableParallelExecution: true,
+  verbose: false,
+  agentModels: {
+    zhongshu: { providerID: "<YOUR_PROVIDER>", modelID: "<YOUR_MODEL>" },
+    menxia: { providerID: "<YOUR_PROVIDER>", modelID: "<YOUR_MODEL>" },
+    shangshu: { providerID: "<YOUR_PROVIDER>", modelID: "<YOUR_MODEL>" },
+    works: { providerID: "<YOUR_PROVIDER>", modelID: "<YOUR_MODEL>" },
+  },
+}
+```
+
+The `agentModels` keys map to Tang roles as follows:
+
+| Key | Role | Responsibility |
+|---|---|---|
+| `zhongshu` | Zhongshu | Draft plans and break work into tasks |
+| `menxia` | Menxia | Review plans and execution results |
+| `shangshu` | Shangshu | Dispatch tasks and write the final summary |
+| `personnel` | Ministry of Personnel | Assignment, coordination, and sequencing |
+| `revenue` | Ministry of Revenue | Budget, resources, and token estimation |
+| `rites` | Ministry of Rites | Formatting, protocol, and style checks |
+| `military` | Ministry of War | Execution-oriented implementation work |
+| `justice` | Ministry of Justice | Validation, testing, and quality gates |
+| `works` | Ministry of Works | Code generation, file operations, and builds |
+
+If you want every role to follow the user's own OpenCode default model, leave `agentModels: {}` as-is. Only fill these fields when you want to override a specific role.
 
 You can inspect the effective runtime/configuration surface at any time with `tang_config`.
 
@@ -328,13 +385,14 @@ The plugin resolves configuration in this order:
 
 Right now the environment layer explicitly overrides only `healthRiskProfile`: set `TANG_HEALTH_RISK_PROFILE` to `strict` or `relaxed` when needed. If the env var is invalid, including an empty string, the plugin falls back to the currently effective profile and surfaces a warning through `tang_config.health.warning` and `tang_doctor.riskPolicy.warning`.
 
-In addition to `status`, `warningCount`, `warnings`, and `health.source`, `tang_config` now reports `configFile` metadata so operators can see:
+In addition to `status`, `warningCount`, `warnings`, and `health.source`, `tang_config` now reports `configFile` and `models` metadata so operators can see:
 
 - which `.oh-my-tang.json` path is active
 - whether the file was auto-generated, read from disk, or bypassed after an invalid-file fallback
 - whether `opencode.json` was successfully discovered in the current worktree
+- which Tang runtime roles currently have model overrides
 
-If `.oh-my-tang.json` is missing, Tang creates it automatically. If the file contains invalid JSON or invalid field values, Tang ignores the bad values, keeps usable settings, and reports the issue through `tang_config.warnings`.
+If `.oh-my-tang.json` is missing, Tang creates it automatically. If the file contains invalid JSON or invalid field values, Tang ignores the bad values, keeps usable settings, and reports the issue through `tang_config.warnings`. `agentModels` currently supports `zhongshu`, `menxia`, `shangshu`, and the six ministries; the `shangshu` override is applied during the runtime-backed dispatch stage.
 
 ## Disclaimer
 
